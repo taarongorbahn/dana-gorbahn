@@ -1,7 +1,3 @@
-# Home movie videos — too large for GitHub (one exceeds the 100MB file limit,
-# and GitHub Pages can't serve Git LFS video anyway). Re-add once compressed.
-Home Movies/
-
 # Raw/unedited source documents — contain unfiltered third-party personal info
 # (real names of baptism candidates who aren't family, a stray personal email
 # address, excluded/duplicate talk drafts) that was deliberately left out of
