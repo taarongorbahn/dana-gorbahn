@@ -128,6 +128,11 @@
     color:var(--ink-soft);
   }
 
+  .toc-label-static{
+    margin:22px 0 4px;
+    padding:6px 10px;
+  }
+
   .toc-chevron{
     flex-shrink:0;
     color:var(--ink-soft);
@@ -322,6 +327,36 @@
     border-radius:4px;
     background:#000;
     display:block;
+  }
+
+  /* ---------- Video hub ---------- */
+
+  .video-hub-item{
+    margin:0 0 44px;
+    padding:0 0 44px;
+    border-bottom:1px solid var(--border);
+  }
+
+  .video-hub-item:last-child{
+    margin-bottom:0;
+    padding-bottom:0;
+    border-bottom:none;
+  }
+
+  .video-hub-title{
+    font-size:1.15rem;
+    font-weight:700;
+    margin:0 0 4px;
+  }
+
+  .video-hub-subtitle{
+    font-size:0.9rem;
+    color:var(--ink-soft);
+    margin:0 0 4px;
+  }
+
+  .video-hub-item .media-video{
+    margin:14px 0 0;
   }
 
   /* ---------- Photo gallery ---------- */
@@ -845,13 +880,8 @@
     </div>
   </div>
   <div class="toc-section">
-    <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="tocCollapseMobileD">
-      <span class="toc-label">More Stuff</span>
-      <svg class="toc-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3.5 5L7 8.5L10.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-    <div class="toc-collapse" id="tocCollapseMobileD">
-      <ul class="toc-list" id="tocListMobileD" role="list"></ul>
-    </div>
+    <p class="toc-label toc-label-static">More</p>
+    <ul class="toc-list" id="tocListMobileD" role="list"></ul>
   </div>
   <div class="sidebar-footer">
     <a class="social-link" href="https://www.facebook.com/dana.gorbahn" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
@@ -895,13 +925,8 @@
       </div>
     </div>
     <div class="toc-section">
-      <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="tocCollapseD">
-        <span class="toc-label">More Stuff</span>
-        <svg class="toc-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3.5 5L7 8.5L10.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <div class="toc-collapse" id="tocCollapseD">
-        <ul class="toc-list" id="tocListD" role="list"></ul>
-      </div>
+      <p class="toc-label toc-label-static">More</p>
+      <ul class="toc-list" id="tocListD" role="list"></ul>
     </div>
     <div class="sidebar-footer">
       <a class="social-link" href="https://www.facebook.com/dana.gorbahn" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
@@ -12785,7 +12810,7 @@ I pray in the name of Jesus Christ. Amen.`
   },
   {
     id: "photo-gallery",
-    section: "More Stuff",
+    section: "More",
     title: "📷 Photo Gallery",
     date: "",
     location: "",
@@ -12793,68 +12818,21 @@ I pray in the name of Jesus Christ. Amen.`
     media: { type: "gallery", groups: PHOTO_GALLERY_GROUPS }
   },
   {
-    id: "movie-ffc",
-    section: "More Stuff",
-    title: "Family Feud Canada",
-    subtitle: "Season 4 Episode 85",
+    id: "home-movies",
+    section: "More",
+    title: "📹 Home Movies",
     date: "",
     location: "",
     notes: "",
-    media: { type: "video", src: "Home Movies/Family Feud Canada - Gorbahn vs Caron.mp4" }
-  },
-  {
-    id: "movie-lord-of-the-ctr-ring",
-    section: "More Stuff",
-    title: "Lord of the CTR Ring",
-    date: "",
-    location: "",
-    notes: "",
-    media: { type: "video", src: "Home Movies/Lord of the CTR Ring.mp4" }
-  },
-  {
-    id: "movie-practice-makes-perfect",
-    section: "More Stuff",
-    title: "Practice Makes Perfect",
-    date: "",
-    location: "",
-    notes: "",
-    media: { type: "video", src: "Home Movies/Practice Makes Perfect.mp4" }
-  },
-  {
-    id: "movie-atmosphere",
-    section: "More Stuff",
-    title: "Atmosphere",
-    date: "",
-    location: "",
-    notes: "",
-    media: { type: "video", src: "Home Movies/Atmosphere.mp4" }
-  },
-  {
-    id: "movie-aeroplanes",
-    section: "More Stuff",
-    title: "Aeroplanes",
-    date: "",
-    location: "",
-    notes: "",
-    media: { type: "video", src: "Home Movies/Aeroplanes.mp4" }
-  },
-  {
-    id: "movie-rewind",
-    section: "More Stuff",
-    title: "Rewind",
-    date: "",
-    location: "",
-    notes: "",
-    media: { type: "video", src: "Home Movies/Rewind.mp4" }
-  },
-  {
-    id: "movie-stolen",
-    section: "More Stuff",
-    title: "Stolen",
-    date: "",
-    location: "",
-    notes: "",
-    media: { type: "video", src: "Home Movies/Stolen.mp4" }
+    media: { type: "video-hub", videos: [
+      { title: "Family Feud Canada", subtitle: "Season 4 Episode 85", src: "Home Movies/Family Feud Canada - Gorbahn vs Caron.mp4" },
+      { title: "Lord of the CTR Ring", src: "Home Movies/Lord of the CTR Ring.mp4" },
+      { title: "Practice Makes Perfect", src: "Home Movies/Practice Makes Perfect.mp4" },
+      { title: "Atmosphere", src: "Home Movies/Atmosphere.mp4" },
+      { title: "Aeroplanes", src: "Home Movies/Aeroplanes.mp4" },
+      { title: "Rewind", src: "Home Movies/Rewind.mp4" },
+      { title: "Stolen", src: "Home Movies/Stolen.mp4" }
+    ] }
   }
 
 ];
@@ -12887,6 +12865,18 @@ function renderMedia(media){
       <video controls preload="metadata" src="${media.src}"></video>
       <p class="media-video-fallback" hidden>This video isn't hosted here yet — check back soon.</p>
     </div>`;
+  }
+  if (media.type === "video-hub") {
+    return media.videos.map(v => `
+      <div class="video-hub-item">
+        <h2 class="video-hub-title">${v.title}</h2>
+        ${v.subtitle ? `<p class="video-hub-subtitle">${v.subtitle}</p>` : ""}
+        <div class="media-video">
+          <video controls preload="metadata" src="${v.src}"></video>
+          <p class="media-video-fallback" hidden>This video isn't hosted here yet — check back soon.</p>
+        </div>
+      </div>
+    `).join("");
   }
   if (media.type === "gallery") {
     return media.groups.map(group => `
@@ -12964,8 +12954,7 @@ function buildTocInto(listId, section){
 
 const TOC_GROUPS = {
   "Church Talks":     ["tocCollapseMain", "tocCollapseMobileMain"],
-  "Christmas Letters":["tocCollapseC", "tocCollapseMobileC"],
-  "More Stuff":       ["tocCollapseD", "tocCollapseMobileD"]
+  "Christmas Letters":["tocCollapseC", "tocCollapseMobileC"]
 };
 
 function setTocSectionOpen(collapseId, open){
@@ -13091,8 +13080,8 @@ function renderCover(){
     .join("");
 
   const moreStuffHTML = talks
-    .filter(t => t.section === "More Stuff")
-    .map(t => renderCoverEntry(t, t.media && t.media.type === "gallery" ? "Gallery" : t.media && t.media.type === "video" ? "Video" : ""))
+    .filter(t => t.section === "More")
+    .map(t => renderCoverEntry(t, t.media && t.media.type === "gallery" ? "Gallery" : t.media && t.media.type === "video-hub" ? "Videos" : ""))
     .join("");
 
   page.innerHTML = `
@@ -13118,7 +13107,7 @@ function renderCover(){
         <ul class="years-list">${christmasHTML}</ul>
       </div>
       <div class="contents-section">
-        <p class="contents-section-head">More Stuff</p>
+        <p class="contents-section-head">More</p>
         <hr class="contents-section-rule">
         <ul class="more-list">${moreStuffHTML}</ul>
       </div>
@@ -13148,10 +13137,10 @@ document.querySelector(".mobile-menu-title-group").addEventListener("click", sho
 
 buildTocInto("tocListMain", "Church Talks");
 buildTocInto("tocListC", "Christmas Letters");
-buildTocInto("tocListD", "More Stuff");
+buildTocInto("tocListD", "More");
 buildTocInto("tocListMobileMain", "Church Talks");
 buildTocInto("tocListMobileC", "Christmas Letters");
-buildTocInto("tocListMobileD", "More Stuff");
+buildTocInto("tocListMobileD", "More");
 const startId = (location.hash || "").replace("#", "");
 if (startId && talks.some(t => t.id === startId)) {
   selectTalk(startId, { openSection: false });
