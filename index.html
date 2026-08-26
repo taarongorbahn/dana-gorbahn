@@ -698,16 +698,10 @@
     white-space:nowrap;
   }
 
-  .contents-secondary{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:64px;
+  .contents-section + .contents-section{
     padding-top:44px;
-    margin-top:8px;
     border-top:1px solid var(--border);
   }
-
-  .contents-secondary .contents-section{ margin-bottom:0; }
 
   .more-list,
   .years-list{
@@ -833,11 +827,6 @@
 
     .talks-list{
       columns:1;
-    }
-
-    .contents-secondary{
-      grid-template-columns:1fr;
-      gap:40px;
     }
 
     .mobile-menu-overlay{
@@ -13158,18 +13147,17 @@ function renderCover(){
       ${churchTalks.showAllHTML}
     </div>
 
-    <div class="contents-secondary">
-      <div class="contents-section">
-        <p class="contents-section-head">🎄 Christmas Letters</p>
-        <hr class="contents-section-rule">
-        <ul class="years-list" id="coverChristmasList">${christmasLetters.listHTML}</ul>
-        ${christmasLetters.showAllHTML}
-      </div>
-      <div class="contents-section">
-        <p class="contents-section-head">More Stuff</p>
-        <hr class="contents-section-rule">
-        <ul class="more-list">${moreHTML}</ul>
-      </div>
+    <div class="contents-section">
+      <p class="contents-section-head">🎄 Christmas Letters</p>
+      <hr class="contents-section-rule">
+      <ul class="years-list" id="coverChristmasList">${christmasLetters.listHTML}</ul>
+      ${christmasLetters.showAllHTML}
+    </div>
+
+    <div class="contents-section">
+      <p class="contents-section-head">More Stuff</p>
+      <hr class="contents-section-rule">
+      <ul class="more-list">${moreHTML}</ul>
     </div>
   `;
 
