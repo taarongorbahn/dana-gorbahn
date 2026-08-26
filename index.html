@@ -340,41 +340,42 @@
   }
 
   .media-gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
-    grid-auto-flow:dense;
-    gap:10px;
+    columns:4 160px;
+    column-gap:14px;
     margin:0 0 8px;
+  }
+
+  @media (max-width:640px){
+    .media-gallery{
+      columns:2 140px;
+      column-gap:10px;
+    }
   }
 
   .gallery-item{
     position:relative;
     display:block;
     width:100%;
-    height:100%;
     padding:0;
     border:none;
-    border-radius:6px;
+    border-radius:8px;
     overflow:hidden;
     cursor:zoom-in;
     background:var(--sidebar-bg);
-    aspect-ratio:1 / 1;
+    break-inside:avoid;
+    margin:0 0 14px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.12);
   }
 
-  .gallery-item.gallery-wide{
-    grid-column:span 2;
-    aspect-ratio:2.1 / 1;
-  }
-
-  .gallery-item.gallery-tall{
-    grid-row:span 2;
-    aspect-ratio:1 / 2.1;
+  @media (max-width:640px){
+    .gallery-item{
+      margin-bottom:10px;
+    }
   }
 
   .gallery-item img{
     width:100%;
-    height:100%;
-    object-fit:cover;
+    height:auto;
     display:block;
     transition:transform 0.35s ease;
   }
@@ -666,11 +667,11 @@
     </button>
   </div>
   <div class="toc-section">
-    <button class="toc-toggle" type="button" aria-expanded="true" aria-controls="tocCollapseMobileMain">
+    <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="tocCollapseMobileMain">
       <span class="toc-label">Church Talks</span>
       <svg class="toc-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3.5 5L7 8.5L10.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
-    <div class="toc-collapse open" id="tocCollapseMobileMain">
+    <div class="toc-collapse" id="tocCollapseMobileMain">
       <ul class="toc-list" id="tocListMobileMain" role="list"></ul>
     </div>
   </div>
@@ -716,11 +717,11 @@
     <p class="book-byline">Works by Dana&nbsp;Gorbahn</p>
 
     <div class="toc-section">
-      <button class="toc-toggle" type="button" aria-expanded="true" aria-controls="tocCollapseMain">
+      <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="tocCollapseMain">
         <span class="toc-label">Church Talks</span>
         <svg class="toc-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3.5 5L7 8.5L10.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="toc-collapse open" id="tocCollapseMain">
+      <div class="toc-collapse" id="tocCollapseMain">
         <ul class="toc-list" id="tocListMain" role="list"></ul>
       </div>
     </div>
@@ -789,30 +790,25 @@
 <script>
 const PHOTO_GALLERY_GROUPS = [
   {
-    label: "Old Pics",
-    images: [
-      { src: "Assets/Old Pics - Graduation.jpg", caption: "Graduation" },
-      { src: "Assets/Old Pics - On a Mission - July 13 1987.jpg", caption: "On a Mission — July 13, 1987" },
-      { src: "Assets/Old Pics - Returning from a Mission.jpg", caption: "Returning from a Mission", wide: true },
-      { src: "Assets/Old Pics - Marriage.jpg", caption: "Marriage" },
-      { src: "Assets/Old Pics - With Mom and Baby Kai.jpg", caption: "With Mom and Baby Kai" }
-    ]
-  },
-  {
     label: "",
     images: [
-      { src: "Assets/Fishing in the Bulkley Valley.jpg", caption: "Fishing in the Bulkley Valley" },
-      { src: "Assets/Fishing with a Catch.jpg", caption: "Fishing with a Catch", wide: true },
-      { src: "Assets/Fishing with another Catch.jpeg", caption: "Another Great Catch", wide: true },
-      { src: "Assets/Golfing and Holding the Finish.jpeg", caption: "Golfing — Holding the Finish", wide: true },
-      { src: "Assets/Golfing with the Pup.jpeg", caption: "Golfing with the Pup", wide: true },
-      { src: "Assets/Caddying.jpg", caption: "Caddying" },
-      { src: "Assets/Caddying for Kaleb.jpg", caption: "Caddying for Kaleb" },
+      { src: "Assets/Golfing and Holding the Finish.jpeg", caption: "Golfing — Holding the Finish" },
+      { src: "Assets/Old Pics - Graduation.jpg", caption: "Graduation" },
+      { src: "Assets/BG - River Sunrise.jpeg", caption: "River Sunrise" },
       { src: "Assets/Caddying with Kaleb Posing.jpeg", caption: "Caddying with Kaleb" },
-      { src: "Assets/Reffing.jpg", caption: "Reffing", tall: true },
-      { src: "Assets/BG - River Sunrise.jpeg", caption: "River Sunrise", tall: true },
-      { src: "Assets/BG - River Sunset.jpeg", caption: "River Sunset", wide: true },
-      { src: "Assets/IMG_3020.jpeg", caption: "", tall: true }
+      { src: "Assets/Fishing with a Catch.jpg", caption: "Fishing with a Catch" },
+      { src: "Assets/Old Pics - On a Mission - July 13 1987.jpg", caption: "On a Mission — July 13, 1987" },
+      { src: "Assets/IMG_3020.jpeg", caption: "" },
+      { src: "Assets/Old Pics - Marriage.jpg", caption: "Marriage" },
+      { src: "Assets/Reffing.jpg", caption: "Reffing" },
+      { src: "Assets/Fishing in the Bulkley Valley.jpg", caption: "Fishing in the Bulkley Valley" },
+      { src: "Assets/Golfing with the Pup.jpeg", caption: "Golfing with the Pup" },
+      { src: "Assets/Old Pics - Returning from a Mission.jpg", caption: "Returning from a Mission" },
+      { src: "Assets/Caddying for Kaleb.jpg", caption: "Caddying for Kaleb" },
+      { src: "Assets/Old Pics - With Mom and Baby Kai.jpg", caption: "With Mom and Baby Kai" },
+      { src: "Assets/Fishing with another Catch.jpeg", caption: "Another Great Catch" },
+      { src: "Assets/BG - River Sunset.jpeg", caption: "River Sunset" },
+      { src: "Assets/Caddying.jpg", caption: "Caddying" }
     ]
   }
 ];
@@ -12737,7 +12733,7 @@ function renderMedia(media){
       ${group.label ? `<p class="gallery-group-label">${group.label}</p>` : ""}
       <div class="media-gallery">
         ${group.images.map(img => `
-          <button type="button" class="gallery-item${img.wide ? " gallery-wide" : ""}${img.tall ? " gallery-tall" : ""}" data-src="${img.src}" data-caption="${img.caption.replace(/"/g, "&quot;")}">
+          <button type="button" class="gallery-item" data-src="${img.src}" data-caption="${img.caption.replace(/"/g, "&quot;")}">
             <img src="${img.src}" alt="${img.caption.replace(/"/g, "&quot;")}" loading="lazy">
             ${img.caption ? `<span class="gallery-item-caption">${img.caption}</span>` : ""}
           </button>
@@ -12831,13 +12827,13 @@ document.querySelectorAll(".toc-toggle").forEach(btn => {
   });
 });
 
-function selectTalk(id){
+function selectTalk(id, { openSection = true } = {}){
   const talk = talks.find(t => t.id === id);
   if (!talk) return;
   document.querySelectorAll(".toc-item").forEach(el => {
     el.classList.toggle("active", el.getAttribute("data-id") === id);
   });
-  openTocSectionFor(talk.section);
+  if (openSection) openTocSectionFor(talk.section);
   renderTalk(talk);
   history.replaceState(null, "", "#" + id);
 }
@@ -12916,7 +12912,7 @@ buildTocInto("tocListMobileMain", "Church Talks");
 buildTocInto("tocListMobileC", "Christmas Letters");
 buildTocInto("tocListMobileD", "More Stuff");
 const startId = (location.hash || "").replace("#", "") || talks[0].id;
-selectTalk(talks.some(t => t.id === startId) ? startId : talks[0].id);
+selectTalk(talks.some(t => t.id === startId) ? startId : talks[0].id, { openSection: false });
 </script>
 
 </body>
