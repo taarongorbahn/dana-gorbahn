@@ -1,0 +1,28 @@
+# Home movie videos — too large for GitHub (one exceeds the 100MB file limit,
+# and GitHub Pages can't serve Git LFS video anyway). Re-add once compressed.
+Home Movies/
+
+# Raw/unedited source documents — contain unfiltered third-party personal info
+# (real names of baptism candidates who aren't family, a stray personal email
+# address, excluded/duplicate talk drafts) that was deliberately left out of
+# the published site. Not needed for the site to function.
+Z - Original Church Talks/
+Church Talks — Final List - Talks — Final List.csv
+
+# Internal working notes for AI-assisted editing sessions, not meant as a
+# public-facing README.
+HANDOFF.md
+
+# Unrelated files that happen to live in this folder — not used by the site.
+Dik Tiy Housing Society.png
+GPAR-logo-black.png
+GPAR-logo-white.png
+High Road Services Society.png
+
+# Local dev server config (recreated temporarily during local testing)
+.claude/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
