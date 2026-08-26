@@ -720,6 +720,23 @@
   .more-list li,
   .years-list li{ margin-bottom:0; }
 
+  .show-all-toggle{
+    display:inline-block;
+    background:none;
+    border:none;
+    padding:0;
+    margin-top:14px;
+    font-family:'Inter', sans-serif;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    text-decoration:underline;
+    cursor:pointer;
+  }
+
+  .show-all-toggle:hover{
+    color:var(--ink);
+  }
+
   #sidebarProfileImg,
   #sidebarBookTitle,
   .mobile-menu-title-group,
@@ -13055,8 +13072,10 @@ function closeMobileMenu(){
 document.getElementById("mobileMenuBtn").addEventListener("click", openMobileMenu);
 document.getElementById("mobileMenuClose").addEventListener("click", closeMobileMenu);
 
-function renderCoverEntry(talk, dateLabel){
-  return `<li>
+const COVER_PREVIEW_COUNT = 6;
+
+function renderCoverEntry(talk, dateLabel, extra){
+  return `<li${extra ? ' class="extra-entry" hidden' : ""}>
     <a href="#${talk.id}" class="cover-link" data-id="${talk.id}">
       <span class="entry-title">${talk.navTitle || talk.title}</span>
       <span class="entry-leader" aria-hidden="true"></span>
@@ -13065,30 +13084,40 @@ function renderCoverEntry(talk, dateLabel){
   </li>`;
 }
 
+function renderCoverSection(items, dateFn, listId){
+  const preview = items.slice(0, COVER_PREVIEW_COUNT).map(t => renderCoverEntry(t, dateFn(t), false)).join("");
+  const rest = items.slice(COVER_PREVIEW_COUNT);
+  const restHTML = rest.map(t => renderCoverEntry(t, dateFn(t), true)).join("");
+  const showAllHTML = rest.length ? `<button class="show-all-toggle" type="button" data-list="${listId}">Show all</button>` : "";
+  return { listHTML: preview + restHTML, showAllHTML };
+}
+
 function renderCover(){
   const page = document.getElementById("page");
   page.classList.add("page-cover");
 
-  const churchTalksHTML = talks
-    .filter(t => t.section === "Church Talks")
-    .map(t => renderCoverEntry(t, t.date || ""))
-    .join("");
+  const churchTalks = renderCoverSection(
+    talks.filter(t => t.section === "Church Talks"),
+    t => t.date || "",
+    "coverChurchTalksList"
+  );
 
-  const christmasHTML = talks
-    .filter(t => t.section === "Christmas Letters")
-    .map(t => renderCoverEntry(t, "PDF"))
-    .join("");
+  const christmasLetters = renderCoverSection(
+    talks.filter(t => t.section === "Christmas Letters"),
+    () => "PDF",
+    "coverChristmasList"
+  );
 
-  const moreStuffHTML = talks
+  const moreHTML = talks
     .filter(t => t.section === "More")
-    .map(t => renderCoverEntry(t, t.media && t.media.type === "gallery" ? "Gallery" : t.media && t.media.type === "video-hub" ? "Videos" : ""))
+    .map(t => renderCoverEntry(t, t.media && t.media.type === "gallery" ? "Gallery" : t.media && t.media.type === "video-hub" ? "Videos" : "", false))
     .join("");
 
   page.innerHTML = `
     <div class="titlepage">
       <img class="titlepage-portrait" src="Assets/Profile Image.png" alt="Dana Gorbahn">
       <h1 class="titlepage-title">The Plates of Dana</h1>
-      <p class="titlepage-desc">Church talks, Christmas letters, and family memories from Dana Gorbahn.</p>
+      <p class="titlepage-desc">Church Talks, Christmas Letters, and More from Dana Gorbahn.</p>
       <hr class="titlepage-rule">
     </div>
 
@@ -13097,19 +13126,21 @@ function renderCover(){
     <div class="contents-section">
       <p class="contents-section-head">Church Talks</p>
       <hr class="contents-section-rule">
-      <ul class="talks-list">${churchTalksHTML}</ul>
+      <ul class="talks-list" id="coverChurchTalksList">${churchTalks.listHTML}</ul>
+      ${churchTalks.showAllHTML}
     </div>
 
     <div class="contents-secondary">
       <div class="contents-section">
         <p class="contents-section-head">Christmas Letters</p>
         <hr class="contents-section-rule">
-        <ul class="years-list">${christmasHTML}</ul>
+        <ul class="years-list" id="coverChristmasList">${christmasLetters.listHTML}</ul>
+        ${christmasLetters.showAllHTML}
       </div>
       <div class="contents-section">
         <p class="contents-section-head">More</p>
         <hr class="contents-section-rule">
-        <ul class="more-list">${moreStuffHTML}</ul>
+        <ul class="more-list">${moreHTML}</ul>
       </div>
     </div>
   `;
@@ -13118,6 +13149,16 @@ function renderCover(){
     a.addEventListener("click", e => {
       e.preventDefault();
       selectTalk(a.getAttribute("data-id"));
+    });
+  });
+
+  page.querySelectorAll(".show-all-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const list = document.getElementById(btn.getAttribute("data-list"));
+      const extraItems = list.querySelectorAll(".extra-entry");
+      const willShow = extraItems.length > 0 && extraItems[0].hidden;
+      extraItems.forEach(li => { li.hidden = !willShow; });
+      btn.textContent = willShow ? "Show less" : "Show all";
     });
   });
 
