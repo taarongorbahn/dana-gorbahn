@@ -653,8 +653,7 @@
     list-style:none;
     margin:0;
     padding:0;
-    columns:2;
-    column-gap:48px;
+    columns:1;
   }
 
   .talks-list li{
@@ -765,18 +764,41 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
+      gap:12px;
       position:fixed;
       top:0; left:0; right:0;
-      height:56px;
       background:#ffffff;
       border-bottom:1px solid var(--border);
-      padding:0 16px;
+      padding:10px 16px;
       z-index:60;
+    }
+
+    .mobile-header-identity{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+      cursor:pointer;
+    }
+
+    .mobile-header-text{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+      line-height:1.3;
     }
 
     .mobile-header-title{
       font-size:0.95rem;
       font-weight:700;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .mobile-header-subtitle{
+      font-size:0.72rem;
+      color:var(--ink-soft);
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -798,7 +820,7 @@
     }
 
     .main-wrap{
-      padding:88px 20px 70px;
+      padding:96px 20px 70px;
     }
 
     .talk-title{
@@ -858,7 +880,13 @@
 <body>
 
 <div class="mobile-header">
-  <span class="mobile-header-title" id="mobileHeaderTitle">The Plates of Dana</span>
+  <div class="mobile-header-identity" id="mobileHeaderTitle">
+    <img class="profile-image profile-image-sm" src="Assets/Profile Image.png" alt="Dana Gorbahn">
+    <div class="mobile-header-text">
+      <span class="mobile-header-title">The Plates of Dana</span>
+      <span class="mobile-header-subtitle">By Dana Gorbahn</span>
+    </div>
+  </div>
   <button class="mobile-menu-btn" id="mobileMenuBtn" aria-haspopup="true" aria-expanded="false" aria-label="Open menu">
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
       <path d="M2 4.5H16M2 9H16M2 13.5H16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -880,7 +908,7 @@
   </div>
   <div class="toc-section">
     <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="tocCollapseMobileMain">
-      <span class="toc-label">Church Talks</span>
+      <span class="toc-label">⛪ Church Talks</span>
       <svg class="toc-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3.5 5L7 8.5L10.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="toc-collapse" id="tocCollapseMobileMain">
@@ -889,7 +917,7 @@
   </div>
   <div class="toc-section">
     <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="tocCollapseMobileC">
-      <span class="toc-label">Christmas Letters</span>
+      <span class="toc-label">🎄 Christmas Letters</span>
       <svg class="toc-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3.5 5L7 8.5L10.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="toc-collapse" id="tocCollapseMobileC">
@@ -897,7 +925,7 @@
     </div>
   </div>
   <div class="toc-section">
-    <p class="toc-label toc-label-static">More</p>
+    <p class="toc-label toc-label-static">More Stuff</p>
     <ul class="toc-list" id="tocListMobileD" role="list"></ul>
   </div>
   <div class="sidebar-footer">
@@ -921,11 +949,11 @@
   <aside class="sidebar" aria-label="Table of contents">
     <img class="profile-image" id="sidebarProfileImg" src="Assets/Profile Image.png" alt="Dana Gorbahn">
     <p class="book-title" id="sidebarBookTitle">The Plates of Dana</p>
-    <p class="book-byline">Works by Dana&nbsp;Gorbahn</p>
+    <p class="book-byline">By Dana&nbsp;Gorbahn</p>
 
     <div class="toc-section">
       <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="tocCollapseMain">
-        <span class="toc-label">Church Talks</span>
+        <span class="toc-label">⛪ Church Talks</span>
         <svg class="toc-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3.5 5L7 8.5L10.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div class="toc-collapse" id="tocCollapseMain">
@@ -934,7 +962,7 @@
     </div>
     <div class="toc-section">
       <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="tocCollapseC">
-        <span class="toc-label">Christmas Letters</span>
+        <span class="toc-label">🎄 Christmas Letters</span>
         <svg class="toc-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3.5 5L7 8.5L10.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div class="toc-collapse" id="tocCollapseC">
@@ -942,7 +970,7 @@
       </div>
     </div>
     <div class="toc-section">
-      <p class="toc-label toc-label-static">More</p>
+      <p class="toc-label toc-label-static">More Stuff</p>
       <ul class="toc-list" id="tocListD" role="list"></ul>
     </div>
     <div class="sidebar-footer">
@@ -12826,17 +12854,8 @@ I pray in the name of Jesus Christ. Amen.`
     media: { type: "pdf", src: "Christmas Letters/2011.pdf" }
   },
   {
-    id: "photo-gallery",
-    section: "More",
-    title: "📷 Photo Gallery",
-    date: "",
-    location: "",
-    notes: "",
-    media: { type: "gallery", groups: PHOTO_GALLERY_GROUPS }
-  },
-  {
     id: "home-movies",
-    section: "More",
+    section: "More Stuff",
     title: "📹 Home Movies",
     date: "",
     location: "",
@@ -12850,6 +12869,15 @@ I pray in the name of Jesus Christ. Amen.`
       { title: "Rewind", src: "Home Movies/Rewind.mp4" },
       { title: "Stolen", src: "Home Movies/Stolen.mp4" }
     ] }
+  },
+  {
+    id: "photo-gallery",
+    section: "More Stuff",
+    title: "📷 Photo Gallery",
+    date: "",
+    location: "",
+    notes: "",
+    media: { type: "gallery", groups: PHOTO_GALLERY_GROUPS }
   }
 
 ];
@@ -13109,7 +13137,7 @@ function renderCover(){
   );
 
   const moreHTML = talks
-    .filter(t => t.section === "More")
+    .filter(t => t.section === "More Stuff")
     .map(t => renderCoverEntry(t, t.media && t.media.type === "gallery" ? "Gallery" : t.media && t.media.type === "video-hub" ? "Videos" : "", false))
     .join("");
 
@@ -13124,7 +13152,7 @@ function renderCover(){
     <p class="contents-label">Contents</p>
 
     <div class="contents-section">
-      <p class="contents-section-head">Church Talks</p>
+      <p class="contents-section-head">⛪ Church Talks</p>
       <hr class="contents-section-rule">
       <ul class="talks-list" id="coverChurchTalksList">${churchTalks.listHTML}</ul>
       ${churchTalks.showAllHTML}
@@ -13132,13 +13160,13 @@ function renderCover(){
 
     <div class="contents-secondary">
       <div class="contents-section">
-        <p class="contents-section-head">Christmas Letters</p>
+        <p class="contents-section-head">🎄 Christmas Letters</p>
         <hr class="contents-section-rule">
         <ul class="years-list" id="coverChristmasList">${christmasLetters.listHTML}</ul>
         ${christmasLetters.showAllHTML}
       </div>
       <div class="contents-section">
-        <p class="contents-section-head">More</p>
+        <p class="contents-section-head">More Stuff</p>
         <hr class="contents-section-rule">
         <ul class="more-list">${moreHTML}</ul>
       </div>
@@ -13178,10 +13206,10 @@ document.querySelector(".mobile-menu-title-group").addEventListener("click", sho
 
 buildTocInto("tocListMain", "Church Talks");
 buildTocInto("tocListC", "Christmas Letters");
-buildTocInto("tocListD", "More");
+buildTocInto("tocListD", "More Stuff");
 buildTocInto("tocListMobileMain", "Church Talks");
 buildTocInto("tocListMobileC", "Christmas Letters");
-buildTocInto("tocListMobileD", "More");
+buildTocInto("tocListMobileD", "More Stuff");
 const startId = (location.hash || "").replace("#", "");
 if (startId && talks.some(t => t.id === startId)) {
   selectTalk(startId, { openSection: false });
