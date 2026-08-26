@@ -545,6 +545,153 @@
     text-decoration:underline;
   }
 
+  /* ---------- Cover / contents page ---------- */
+
+  .page.page-cover{
+    max-width:960px;
+  }
+
+  .titlepage{
+    text-align:center;
+    max-width:480px;
+    margin:0 auto 56px;
+  }
+
+  .titlepage-portrait{
+    width:88px;
+    height:88px;
+    border-radius:50%;
+    object-fit:cover;
+    margin:0 auto 24px;
+    border:2px solid var(--border);
+    display:block;
+  }
+
+  .titlepage-title{
+    font-weight:700;
+    font-size:2.6rem;
+    letter-spacing:-0.01em;
+    line-height:1.15;
+    margin:0 0 16px;
+  }
+
+  .titlepage-desc{
+    font-size:1rem;
+    color:var(--ink-soft);
+    line-height:1.6;
+    margin:0;
+  }
+
+  .titlepage-rule{
+    border:none;
+    border-top:1px solid var(--border);
+    width:64px;
+    margin:32px auto 0;
+  }
+
+  .contents-label{
+    font-size:0.72rem;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 40px;
+    text-align:center;
+  }
+
+  .contents-section{ margin-bottom:52px; }
+  .contents-section:last-child{ margin-bottom:0; }
+
+  .contents-section-head{
+    font-size:1.15rem;
+    font-weight:700;
+    margin:0 0 4px;
+  }
+
+  .contents-section-rule{
+    border:none;
+    border-top:1px solid var(--border);
+    margin:10px 0 20px;
+  }
+
+  .talks-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    columns:2;
+    column-gap:48px;
+  }
+
+  .talks-list li{
+    break-inside:avoid;
+    margin-bottom:2px;
+  }
+
+  .talks-list a,
+  .more-list a,
+  .years-list a{
+    display:flex;
+    align-items:baseline;
+    text-decoration:none;
+    color:var(--ink);
+    padding:6px 0;
+    font-size:0.88rem;
+    line-height:1.35;
+  }
+
+  .talks-list a:hover .entry-title,
+  .more-list a:hover .entry-title,
+  .years-list a:hover .entry-title{ text-decoration:underline; }
+
+  .entry-title{
+    flex-shrink:1;
+    min-width:0;
+  }
+
+  .entry-leader{
+    flex:1 1 auto;
+    border-bottom:1px dotted var(--border);
+    margin:0 6px;
+    position:relative;
+    top:-3px;
+    min-width:10px;
+  }
+
+  .entry-date{
+    flex-shrink:0;
+    font-size:0.76rem;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  .contents-secondary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+    padding-top:44px;
+    margin-top:8px;
+    border-top:1px solid var(--border);
+  }
+
+  .contents-secondary .contents-section{ margin-bottom:0; }
+
+  .more-list,
+  .years-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+
+  .more-list li,
+  .years-list li{ margin-bottom:0; }
+
+  #sidebarProfileImg,
+  #sidebarBookTitle,
+  .mobile-menu-title-group,
+  #mobileHeaderTitle{
+    cursor:pointer;
+  }
+
   /* ---------- Mobile: fixed header + fullscreen menu ---------- */
 
   .mobile-header{
@@ -606,6 +753,19 @@
       font-size:1.6rem;
     }
 
+    .titlepage-title{
+      font-size:2rem;
+    }
+
+    .talks-list{
+      columns:1;
+    }
+
+    .contents-secondary{
+      grid-template-columns:1fr;
+      gap:40px;
+    }
+
     .mobile-menu-overlay{
       position:fixed;
       inset:0;
@@ -646,7 +806,7 @@
 <body>
 
 <div class="mobile-header">
-  <span class="mobile-header-title">The Plates of Dana</span>
+  <span class="mobile-header-title" id="mobileHeaderTitle">The Plates of Dana</span>
   <button class="mobile-menu-btn" id="mobileMenuBtn" aria-haspopup="true" aria-expanded="false" aria-label="Open menu">
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
       <path d="M2 4.5H16M2 9H16M2 13.5H16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -712,8 +872,8 @@
 <div class="app">
 
   <aside class="sidebar" aria-label="Table of contents">
-    <img class="profile-image" src="Assets/Profile Image.png" alt="Dana Gorbahn">
-    <p class="book-title">The Plates of Dana</p>
+    <img class="profile-image" id="sidebarProfileImg" src="Assets/Profile Image.png" alt="Dana Gorbahn">
+    <p class="book-title" id="sidebarBookTitle">The Plates of Dana</p>
     <p class="book-byline">Works by Dana&nbsp;Gorbahn</p>
 
     <div class="toc-section">
@@ -12750,6 +12910,7 @@ function renderTalk(talk){
   const next = talks[index + 1];
   const metaParts = [talk.date, talk.location].filter(Boolean);
   const page = document.getElementById("page");
+  page.classList.remove("page-cover");
   page.innerHTML = `
     <p class="talk-eyebrow">${talk.section}</p>
     <h1 class="talk-title">${talk.title}</h1>
@@ -12905,14 +13066,98 @@ function closeMobileMenu(){
 document.getElementById("mobileMenuBtn").addEventListener("click", openMobileMenu);
 document.getElementById("mobileMenuClose").addEventListener("click", closeMobileMenu);
 
+function renderCoverEntry(talk, dateLabel){
+  return `<li>
+    <a href="#${talk.id}" class="cover-link" data-id="${talk.id}">
+      <span class="entry-title">${talk.navTitle || talk.title}</span>
+      <span class="entry-leader" aria-hidden="true"></span>
+      <span class="entry-date">${dateLabel}</span>
+    </a>
+  </li>`;
+}
+
+function renderCover(){
+  const page = document.getElementById("page");
+  page.classList.add("page-cover");
+
+  const churchTalksHTML = talks
+    .filter(t => t.section === "Church Talks")
+    .map(t => renderCoverEntry(t, t.date || ""))
+    .join("");
+
+  const christmasHTML = talks
+    .filter(t => t.section === "Christmas Letters")
+    .map(t => renderCoverEntry(t, "PDF"))
+    .join("");
+
+  const moreStuffHTML = talks
+    .filter(t => t.section === "More Stuff")
+    .map(t => renderCoverEntry(t, t.media && t.media.type === "gallery" ? "Gallery" : t.media && t.media.type === "video" ? "Video" : ""))
+    .join("");
+
+  page.innerHTML = `
+    <div class="titlepage">
+      <img class="titlepage-portrait" src="Assets/Profile Image.png" alt="Dana Gorbahn">
+      <h1 class="titlepage-title">The Plates of Dana</h1>
+      <p class="titlepage-desc">Church talks, Christmas letters, and family memories from Dana Gorbahn.</p>
+      <hr class="titlepage-rule">
+    </div>
+
+    <p class="contents-label">Contents</p>
+
+    <div class="contents-section">
+      <p class="contents-section-head">Church Talks</p>
+      <hr class="contents-section-rule">
+      <ul class="talks-list">${churchTalksHTML}</ul>
+    </div>
+
+    <div class="contents-secondary">
+      <div class="contents-section">
+        <p class="contents-section-head">Christmas Letters</p>
+        <hr class="contents-section-rule">
+        <ul class="years-list">${christmasHTML}</ul>
+      </div>
+      <div class="contents-section">
+        <p class="contents-section-head">More Stuff</p>
+        <hr class="contents-section-rule">
+        <ul class="more-list">${moreStuffHTML}</ul>
+      </div>
+    </div>
+  `;
+
+  page.querySelectorAll(".cover-link").forEach(a => {
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      selectTalk(a.getAttribute("data-id"));
+    });
+  });
+
+  document.querySelectorAll(".toc-item").forEach(el => el.classList.remove("active"));
+  history.replaceState(null, "", location.pathname + location.search);
+}
+
+function showCover(){
+  renderCover();
+  closeMobileMenu();
+}
+
+document.getElementById("sidebarProfileImg").addEventListener("click", showCover);
+document.getElementById("sidebarBookTitle").addEventListener("click", showCover);
+document.getElementById("mobileHeaderTitle").addEventListener("click", showCover);
+document.querySelector(".mobile-menu-title-group").addEventListener("click", showCover);
+
 buildTocInto("tocListMain", "Church Talks");
 buildTocInto("tocListC", "Christmas Letters");
 buildTocInto("tocListD", "More Stuff");
 buildTocInto("tocListMobileMain", "Church Talks");
 buildTocInto("tocListMobileC", "Christmas Letters");
 buildTocInto("tocListMobileD", "More Stuff");
-const startId = (location.hash || "").replace("#", "") || talks[0].id;
-selectTalk(talks.some(t => t.id === startId) ? startId : talks[0].id, { openSection: false });
+const startId = (location.hash || "").replace("#", "");
+if (startId && talks.some(t => t.id === startId)) {
+  selectTalk(startId, { openSection: false });
+} else {
+  renderCover();
+}
 </script>
 
 </body>
